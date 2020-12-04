@@ -2,11 +2,24 @@
   <div>
     <div class="search-term">
       <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
+        <!-- @zgz 增加匹配模式参数，避免字符串为空或数字为0时不执行查询 -->
         <el-form-item label="名称">
-          <el-input placeholder="搜索条件" v-model="searchInfo.name"></el-input>
+          <el-select placeholder="匹配模式" v-model="searchInfo.name_">
+            <el-option label="不匹配" value=""></el-option>
+            <el-option label="等于" value="="></el-option>
+            <el-option label="大于" value=">"></el-option>
+            <el-option label="小于" value="<"></el-option>
+          </el-select>
+          <el-input v-show="searchInfo.name_!=''" placeholder="匹配值" v-model="searchInfo.name"></el-input>
         </el-form-item>
         <el-form-item label="数值">
-          <el-input placeholder="搜索条件" v-model="searchInfo.value"></el-input>
+          <el-select placeholder="匹配模式" v-model="searchInfo.value_">
+            <el-option label="不匹配" value=""></el-option>
+            <el-option label="等于" value="="></el-option>
+            <el-option label="大于" value=">"></el-option>
+            <el-option label="小于" value="<"></el-option>
+          </el-select>
+          <el-input v-show="searchInfo.value_!=''" placeholder="匹配值" v-model="searchInfo.value"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button @click="onSubmit" type="primary">查询</el-button>
