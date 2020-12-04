@@ -21,6 +21,7 @@
         <el-select v-model="config.system.ossType">
           <el-option value="local"></el-option>
           <el-option value="qiniu"></el-option>
+          <el-option value="minio"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="配置文件环境变量名">

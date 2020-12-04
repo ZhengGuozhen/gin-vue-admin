@@ -1,8 +1,10 @@
 package upload
 
 import (
+	"fmt"
 	"gin-vue-admin/global"
 	"mime/multipart"
+	"time"
 )
 
 //@author: [ccfish86](https://github.com/ccfish86)
@@ -28,7 +30,15 @@ func NewOss() OSS {
 		return &Local{}
 	case "qiniu":
 		return &Qiniu{}
+	//	@zgz
+	case "minio":
+		return &Minio{}
 	default:
 		return &Local{}
 	}
+}
+
+func getObjectName(filename string) string {
+	folder := time.Now().Format("20060102")
+	return fmt.Sprintf("%s/%d%s", folder, time.Now().Unix(), filename) // 文件名格式 自己可以改 建议保证唯一性
 }

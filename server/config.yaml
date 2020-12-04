@@ -41,7 +41,8 @@ system:
   env: 'public'  # Change to "develop" to skip authentication for development mode
   addr: 8888
   db-type: 'mysql'
-  oss-type: 'local'
+#  oss-type: 'local'
+  oss-type: 'minio'
   use-multipoint: false
 
 # captcha configuration
@@ -54,9 +55,9 @@ captcha:
 mysql:
   path: '127.0.0.1:3306'
   config: 'charset=utf8mb4&parseTime=True&loc=Local'
-  db-name: 'qmPlus'
+  db-name: 'gva'
   username: 'root'
-  password: 'Aa@6447985'
+  password: 'root'
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: false
@@ -75,3 +76,14 @@ qiniu:
   access-key: '25j8dYBZ2wuiy0yhwShytjZDTX662b8xiFguwxzZ'
   secret-key: 'pgdbqEsf7ooZh7W3xokP833h3dZ_VecFXPDeG5JY'
   use-cdn-domains: false
+
+# @zgz
+# minio configuration
+minio:
+  id: 'minioadmin'
+  path: 'http://localhost:9000'
+  token: ''
+  bucket: 'public'
+  use-ssl: false
+  secret: 'minioadmin'
+  endpoint: 'localhost:9000'

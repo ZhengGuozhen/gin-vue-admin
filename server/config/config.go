@@ -13,4 +13,6 @@ type Server struct {
 	// oss
 	Local Local `mapstructure:"local" json:"local" yaml:"local"`
 	Qiniu Qiniu `mapstructure:"qiniu" json:"qiniu" yaml:"qiniu"`
+	// @zgz
+	Minio  Minio  `mapstructure:"minio" json:"minio" yaml:"minio"`
 }
