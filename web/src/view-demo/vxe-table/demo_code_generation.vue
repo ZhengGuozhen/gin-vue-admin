@@ -39,7 +39,36 @@
         </el-form-item>
       </el-form>
     </div>
+    <!-- vxe-table -->
+    <vxe-toolbar>
+      <template v-slot:buttons>
+        <vxe-button @click="tableData = []">清空数据</vxe-button>
+        <vxe-button @click="exportDataEvent">导出数据</vxe-button>
+      </template>
+    </vxe-toolbar>
+    <vxe-table
+      ref="xTable"
+      border
+      stripe
+      resizable
+      highlight-hover-row
+      show-overflow
+      height="400"
+      :data="tableData"
+    >
+      <vxe-table-column type="seq" width="60"></vxe-table-column>
+      <!-- <vxe-table-column field="CreatedAt" title="CreatedAt"></vxe-table-column> -->
+      <vxe-table-column
+        field="CreatedAt"
+        title="CreatedAt"
+        :formatter="['formatDate2', 'yyyy-MM-dd HH:mm:ss']"
+      ></vxe-table-column>
+      <vxe-table-column field="name" title="Name"></vxe-table-column>
+      <vxe-table-column field="value" title="value"></vxe-table-column>
+    </vxe-table>
+    <!-- el-table -->
     <el-table
+      v-if="false"
       :data="tableData"
       @selection-change="handleSelectionChange"
       border
@@ -81,7 +110,7 @@
     <el-pagination
       :current-page="page"
       :page-size="pageSize"
-      :page-sizes="[10, 30, 50, 100]"
+      :page-sizes="[10, 30, 50, 100, 1000]"
       :total="total"
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
@@ -103,15 +132,6 @@
         <el-button @click="enterDialog" type="primary">确 定</el-button>
       </div>
     </el-dialog>
-
-    <!--  -->
-    <span>vxe-table</span>
-    <vxe-table :data="tableData">
-      <vxe-table-column type="seq" width="60"></vxe-table-column>
-      <vxe-table-column field="CreatedAt" title="CreatedAt"></vxe-table-column>
-      <vxe-table-column field="name" title="Name"></vxe-table-column>
-      <vxe-table-column field="value" title="value"></vxe-table-column>
-    </vxe-table>
   </div>
 </template>
 
@@ -244,6 +264,13 @@ export default {
     openDialog() {
       this.type = "create";
       this.dialogFormVisible = true;
+    },
+    exportDataEvent() {
+      this.$refs.xTable.exportData({
+        filename: 'export',
+        sheetName: 'Sheet1',
+        type: 'xlsx'
+      })
     }
   },
   async created() {

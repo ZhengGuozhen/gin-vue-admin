@@ -72,8 +72,4 @@ console.log(`
        如果项目让您获得了收益，希望您能请团队喝杯可乐:https://www.gin-vue-admin.com/docs/coffee
 `)
 
-// @zgz 引入vxe-table
-import 'xe-utils'
-import VXETable from 'vxe-table'
-import 'vxe-table/lib/style.css'
-Vue.use(VXETable)
+import "./plugins/vxe-table.js";
