@@ -5,7 +5,7 @@
       <el-aside class="main-cont main-left">
         <div class="tilte">
           <img alt class="logoimg" src="~@/assets/nav_logo.png" />
-          <h2 class="tit-text" v-if="isSider">Gin-Vue-Admin</h2>
+          <h2 class="tit-text" v-if="isSider">GVA</h2>
         </div>
         <Aside class="aside" />
       </el-aside>
@@ -44,12 +44,12 @@
                     <i class="el-icon-arrow-down"></i>
                   </span>
                   <el-dropdown-menu class="dropdown-group" slot="dropdown">
-                    <el-dropdown-item>
+                    <!-- <el-dropdown-item>
                       <span>
                         更多信息
                         <el-badge is-dot />
                       </span>
-                    </el-dropdown-item>
+                    </el-dropdown-item> -->
                     <el-dropdown-item @click.native="toPerson" icon="el-icon-s-custom">个人信息</el-dropdown-item>
                     <el-dropdown-item @click.native="LoginOut" icon="el-icon-table-lamp">登 出</el-dropdown-item>
                   </el-dropdown-menu>

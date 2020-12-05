@@ -13,33 +13,33 @@
             ></el-avatar>
             <div class="user-personality">
               <p class="nickname">{{userInfo.nickName}}</p>
-              <p class="person-info">这个家伙很懒，什么都没有留下</p>
+              <!-- <p class="person-info">这个家伙很懒，什么都没有留下</p> -->
             </div>
-            <div class="user-information">
+            <!-- <div class="user-information">
               <ul>
                 <li>
                   <i class="el-icon-user"></i>资深前端工程师
                 </li>
                 <li>
-                  <i class="el-icon-data-analysis"></i>北京反转极光科技有限公司-技术部-前端事业群
+                  <i class="el-icon-data-analysis"></i>xxx公司-技术部
                 </li>
                 <li>
-                  <i class="el-icon-video-camera-solid"></i>中国·北京市·朝阳区
+                  <i class="el-icon-video-camera-solid"></i>中国·xxx
                 </li>
                 <li>
                   <i class="el-icon-medal-1"></i>goLang/JavaScript/Vue/Gorm
                 </li>
               </ul>
-            </div>
+            </div> -->
           </div>
         </div>
       </el-col>
       <el-col :span="18">
         <div class="user-addcount">
           <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="账号绑定" name="second">
+            <el-tab-pane label="账号管理" name="second">
               <ul>
-                <li>
+                <!-- <li>
                   <p class="title">密保手机</p>
                   <p class="desc">
                     已绑定手机:1245678910
@@ -59,7 +59,7 @@
                     未设置密保问题
                     <a href="#">去设置</a>
                   </p>
-                </li>
+                </li> -->
                 <li>
                   <p class="title">修改密码</p>
                   <p class="desc">
