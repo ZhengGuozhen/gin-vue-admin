@@ -60,7 +60,7 @@ export default new Vue({
     store
 }).$mount('#app')
 
-//引入echarts
+// 引入echarts
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts;
 
@@ -71,4 +71,5 @@ console.log(`
        默认前端文件运行地址:http://127.0.0.1:8080
 `)
 
+// 引入vxe-table
 import "./plugins/vxe-table.js";
