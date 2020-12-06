@@ -7,7 +7,7 @@
 <script>
 import MyTable from "@/view-demo/query-setting";
 export default {
-  name: "TableChart",
+  name: "DemoTableChart",
   components: { MyTable },
   data() {
     return {

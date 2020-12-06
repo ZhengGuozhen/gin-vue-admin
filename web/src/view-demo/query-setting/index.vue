@@ -171,7 +171,7 @@ import {
 import { formatTimeToStr } from "@/utils/date";
 import infoList from "@/mixins/infoList";
 export default {
-  name: "QuerySetting",
+  name: "DemoQuerySetting",
   mixins: [infoList],
   components: { QuerySetting },
   data() {
