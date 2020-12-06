@@ -15,6 +15,13 @@ import (
 )
 
 func OperationRecord() gin.HandlerFunc {
+	// @zgz
+	if global.GVA_CONFIG.Middleware.OperationRecord == false {
+		return func(c *gin.Context) {
+			c.Next()
+		}
+	}
+
 	return func(c *gin.Context) {
 		var body []byte
 		var userId int

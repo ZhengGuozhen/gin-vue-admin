@@ -41,7 +41,7 @@ system:
   env: 'public'  # Change to "develop" to skip authentication for development mode
   addr: 8888
   db-type: 'mysql'
-#  oss-type: 'local'
+  #  oss-type: 'local'
   oss-type: 'minio'
   use-multipoint: false
 
@@ -87,3 +87,8 @@ minio:
   use-ssl: false
   secret: 'minioadmin'
   endpoint: 'localhost:9000'
+
+# @zgz
+# 中间件配置
+middleware:
+  operation-record: false

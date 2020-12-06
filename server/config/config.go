@@ -9,10 +9,11 @@ type Server struct {
 	System  System  `mapstructure:"system" json:"system" yaml:"system"`
 	Captcha Captcha `mapstructure:"captcha" json:"captcha" yaml:"captcha"`
 	// gorm
-	Mysql      Mysql      `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
+	Mysql   Mysql   `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
 	// oss
-	Local Local `mapstructure:"local" json:"local" yaml:"local"`
-	Qiniu Qiniu `mapstructure:"qiniu" json:"qiniu" yaml:"qiniu"`
+	Local   Local   `mapstructure:"local" json:"local" yaml:"local"`
+	Qiniu   Qiniu   `mapstructure:"qiniu" json:"qiniu" yaml:"qiniu"`
 	// @zgz
-	Minio  Minio  `mapstructure:"minio" json:"minio" yaml:"minio"`
+	Minio  Minio    `mapstructure:"minio" json:"minio" yaml:"minio"`
+	Middleware Middleware `mapstructure:"middleware" json:"middleware" yaml:"middleware"`
 }
