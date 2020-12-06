@@ -1,6 +1,27 @@
 <template>
   <div>
-    <div class="search-term">
+    <div>
+      <el-row>查询条件数据类型错误会导致查询错误</el-row>
+      <el-row>
+        <el-button type="primary" @click="addQuerySetting">添加</el-button>
+        <el-button type="primary" @click="querySettings=[]">清空</el-button>
+        <el-button type="success" @click="applyQuerySetting">应用</el-button>
+      </el-row>
+      <el-row>
+        <!-- 不能用 index 作为 key -->
+        <!-- https://www.zhihu.com/question/61064119 -->
+        <div
+          v-for="(item, index) in querySettings"
+          :key="item.uuid"
+          style="display:flex;flex-direction:row;align-items:center"
+        >
+          <query-setting :fields="fields" v-on:update="(val) => {querySettings[index].data=val}"></query-setting>
+          <el-button @click="deleteQuerySetting(index)">删除</el-button>
+        </div>
+      </el-row>
+    </div>
+
+    <div v-if="false" class="search-term">
       <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
         <!-- @zgz 增加匹配模式参数，避免字符串为空或数字为0时不执行查询 -->
         <el-form-item label="名称">
@@ -136,6 +157,9 @@
 </template>
 
 <script>
+import uuid from "uuid/v1";
+import QuerySetting from "@/components/query-setting";
+
 import {
   createDemoCodeGeneration,
   deleteDemoCodeGeneration,
@@ -149,8 +173,17 @@ import infoList from "@/mixins/infoList";
 export default {
   name: "DemoCodeGeneration",
   mixins: [infoList],
+  components: { QuerySetting },
   data() {
     return {
+      ////////////////////////////////////
+      fields: [
+        { label: "创建时间", value: "CreatedAt" },
+        { label: "名称", value: "name" },
+        { label: "值", value: "value" }
+      ],
+      querySettings: [],
+      ////////////////////////////////////
       listApi: getDemoCodeGenerationList,
       dialogFormVisible: false,
       visible: false,
@@ -181,6 +214,30 @@ export default {
     }
   },
   methods: {
+    //////////////////////////////////
+    applyQuerySetting() {
+      // console.log(this.querySettings);
+      this.searchInfo = {};
+      for (let i = 0; i < this.querySettings.length; i++) {
+        const e = this.querySettings[i];
+        if (!e.data || !e.data.field) {
+          continue;
+        }
+        this.searchInfo[e.data.field] = e.data.value;
+        this.searchInfo[e.data.field + "_"] = e.data.mode;
+      }
+      // console.log(this.searchInfo);
+      this.onSubmit();
+    },
+    addQuerySetting() {
+      this.querySettings.push({
+        uuid: uuid(),
+        data: {}
+      });
+    },
+    deleteQuerySetting(n) {
+      this.querySettings.splice(n, 1);
+    },
     //条件搜索前端看此方法
     onSubmit() {
       this.page = 1;
@@ -267,10 +324,10 @@ export default {
     },
     exportDataEvent() {
       this.$refs.xTable.exportData({
-        filename: 'export',
-        sheetName: 'Sheet1',
-        type: 'xlsx'
-      })
+        filename: "export",
+        sheetName: "Sheet1",
+        type: "xlsx"
+      });
     }
   },
   async created() {

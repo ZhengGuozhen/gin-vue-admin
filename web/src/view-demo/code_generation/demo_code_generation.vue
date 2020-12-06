@@ -5,7 +5,7 @@
         <!-- @zgz 增加匹配模式参数，避免字符串为空或数字为0时不执行查询 -->
         <el-form-item label="名称">
           <el-select placeholder="匹配模式" v-model="searchInfo.name_">
-            <el-option label="不匹配" value=""></el-option>
+            <el-option label="无定义" value=""></el-option>
             <el-option label="等于" value="="></el-option>
             <el-option label="大于" value=">"></el-option>
             <el-option label="小于" value="<"></el-option>
@@ -14,7 +14,7 @@
         </el-form-item>
         <el-form-item label="数值">
           <el-select placeholder="匹配模式" v-model="searchInfo.value_">
-            <el-option label="不匹配" value=""></el-option>
+            <el-option label="无定义" value=""></el-option>
             <el-option label="等于" value="="></el-option>
             <el-option label="大于" value=">"></el-option>
             <el-option label="小于" value="<"></el-option>
