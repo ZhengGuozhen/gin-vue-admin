@@ -61,8 +61,8 @@ export default new Vue({
 }).$mount('#app')
 
 // 引入echarts
-import echarts from 'echarts'
-Vue.prototype.$echarts = echarts;
+// import echarts from 'echarts'
+// Vue.prototype.$echarts = echarts;
 
 console.log(`
        欢迎使用 GVA
@@ -73,3 +73,5 @@ console.log(`
 
 // 引入vxe-table
 import "./plugins/vxe-table.js";
+// 引入echarts
+import "./plugins/echarts.js";
