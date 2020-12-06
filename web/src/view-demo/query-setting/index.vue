@@ -171,7 +171,7 @@ import {
 import { formatTimeToStr } from "@/utils/date";
 import infoList from "@/mixins/infoList";
 export default {
-  name: "DemoCodeGeneration",
+  name: "QuerySetting",
   mixins: [infoList],
   components: { QuerySetting },
   data() {
