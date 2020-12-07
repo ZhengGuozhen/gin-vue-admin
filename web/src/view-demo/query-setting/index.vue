@@ -4,7 +4,7 @@
       <el-row>查询条件数据类型错误会导致查询错误</el-row>
       <el-row>
         <el-button type="primary" @click="addQuerySetting">添加</el-button>
-        <el-button type="primary" @click="querySettings=[]">清空</el-button>
+        <el-button type="danger" @click="querySettings=[]">清空</el-button>
         <el-button type="success" @click="applyQuerySetting">应用</el-button>
       </el-row>
       <el-row>
@@ -223,8 +223,12 @@ export default {
         if (!e.data || !e.data.field) {
           continue;
         }
-        this.searchInfo[e.data.field] = e.data.value;
         this.searchInfo[e.data.field + "_"] = e.data.mode;
+        if (e.data.mode == "like") {
+          this.searchInfo[e.data.field] = '%' + e.data.value + '%';
+        } else {
+          this.searchInfo[e.data.field] = e.data.value;
+        }
       }
       // console.log(this.searchInfo);
       this.onSubmit();
@@ -238,7 +242,7 @@ export default {
     deleteQuerySetting(n) {
       this.querySettings.splice(n, 1);
     },
-    //条件搜索前端看此方法
+    //////////////////////////////////
     onSubmit() {
       this.page = 1;
       this.pageSize = 10;
