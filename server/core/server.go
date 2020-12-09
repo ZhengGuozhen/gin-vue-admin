@@ -12,7 +12,8 @@ type server interface {
 	ListenAndServe() error
 }
 
-func RunWindowsServer() {
+// @zgz
+func InitRouter() {
 	if global.GVA_CONFIG.System.UseMultipoint {
 		// 初始化redis服务
 		initialize.Redis()
@@ -21,8 +22,13 @@ func RunWindowsServer() {
 	Router := initialize.Routers()
 	Router.Static("/form-generator", "./resource/page")
 
+	global.GVA_ROUTER = Router
+}
+
+func RunWindowsServer() {
+
 	address := fmt.Sprintf(":%d", global.GVA_CONFIG.System.Addr)
-	s := initServer(address, Router)
+	s := initServer(address, global.GVA_ROUTER)
 	// 保证文本顺序输出
 	// In order to ensure that the text order output can be deleted
 	time.Sleep(10 * time.Microsecond)

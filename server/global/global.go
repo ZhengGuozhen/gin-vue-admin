@@ -1,6 +1,7 @@
 package global
 
 import (
+	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 
 	"gin-vue-admin/config"
@@ -16,4 +17,6 @@ var (
 	GVA_VP     *viper.Viper
 	//GVA_LOG    *oplogging.Logger
 	GVA_LOG    *zap.Logger
+	// @zgz
+	GVA_ROUTER *gin.Engine
 )

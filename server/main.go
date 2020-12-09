@@ -1,6 +1,7 @@
 package main
 
 import (
+	demoApp "gin-vue-admin/app/demo_app/router"
 	"gin-vue-admin/core"
 	"gin-vue-admin/global"
 	"gin-vue-admin/initialize"
@@ -21,6 +22,11 @@ func main() {
 	// 程序结束前关闭数据库链接
 	db, _ := global.GVA_DB.DB()
 	defer db.Close()
+
+	core.InitRouter()
+
+	// @zgz，添加app
+	demoApp.InitDemoAppRouter(global.GVA_ROUTER.Group(""))
 
 	core.RunWindowsServer()
 }

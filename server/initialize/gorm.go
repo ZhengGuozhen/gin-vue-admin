@@ -3,6 +3,7 @@ package initialize
 import (
 	"gin-vue-admin/global"
 	"gin-vue-admin/model"
+	modelAppDemo "gin-vue-admin/app/demo_app/model"
 	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -44,8 +45,10 @@ func MysqlTables(db *gorm.DB) {
 		model.WorkflowEndPoint{},
 		model.WorkflowMove{},
 		model.ExaWfLeave{},
-		//	@zgz
+		// @zgz
 		model.DemoCodeGeneration{},
+		// @zgz，添加app
+		modelAppDemo.DemoApp{},
 	)
 	if err != nil {
 		global.GVA_LOG.Error("register table failed", zap.Any("err", err))
