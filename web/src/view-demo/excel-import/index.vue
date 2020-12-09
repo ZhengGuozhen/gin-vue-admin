@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import UploadExcelComponent from "./excel-upload.vue";
+import UploadExcelComponent from "@/components/excel-upload";
 export default {
   name: "UploadExcel",
   components: { UploadExcelComponent },

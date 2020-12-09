@@ -2,6 +2,7 @@ package main
 
 import (
 	demoApp "gin-vue-admin/app/demo_app/router"
+	excel "gin-vue-admin/app/excel_import"
 	"gin-vue-admin/core"
 	"gin-vue-admin/global"
 	"gin-vue-admin/initialize"
@@ -27,6 +28,7 @@ func main() {
 
 	// @zgz，添加app
 	demoApp.InitDemoAppRouter(global.GVA_ROUTER.Group(""))
+	excel.InitRouter(global.GVA_ROUTER.Group(""))
 
 	core.RunWindowsServer()
 }
