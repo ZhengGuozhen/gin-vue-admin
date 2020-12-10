@@ -73,19 +73,18 @@ func GetDemoCodeGenerationInfoList(info request.DemoCodeGenerationSearch) (err e
     // 创建db
 	db := global.GVA_DB.Model(&model.DemoCodeGeneration{})
     var demoCodeGenerations []model.DemoCodeGeneration
-    // 如果有条件搜索 下方会自动创建搜索语句
+
+	// 如果有条件搜索 下方会自动创建搜索语句
     /*if info.Name != "" {
         db = db.Where("`name` LIKE ?","%"+ info.Name+"%")
     }
 	if info.Value != 0 {
        db = db.Where("`value` = ?",info.Value)
     }*/
+
 	// @zgz
-	if info.Name_ != "" {
-		db = db.Where("`name`" + info.Name_ + "?",info.Name)
-	}
-	if info.Value_ != "" {
-		db = db.Where("`value`" + info.Value_ + "?",info.Value)
+	for _, value := range info.QuerySettings {
+		db = db.Where(value)
 	}
 
 	err = db.Count(&total).Error

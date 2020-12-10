@@ -218,18 +218,28 @@ export default {
     applyQuerySetting() {
       // console.log(this.querySettings);
       this.searchInfo = {};
+      var params = [];
       for (let i = 0; i < this.querySettings.length; i++) {
         const e = this.querySettings[i];
         if (!e.data || !e.data.field) {
           continue;
         }
-        this.searchInfo[e.data.field + "_"] = e.data.mode;
-        if (e.data.mode == "like") {
-          this.searchInfo[e.data.field] = '%' + e.data.value + '%';
+
+        var s = "`[field]` [mode] '[value]'"
+        s = s.replace('[field]', e.data.field)
+        s = s.replace('[mode]', e.data.mode)
+        let v = ''
+        if (e.data.mode === "like") {
+          v = '%' + e.data.value + '%'
         } else {
-          this.searchInfo[e.data.field] = e.data.value;
+          v = e.data.value
         }
+        s = s.replace('[value]', v)
+
+        params.push(s)
       }
+      this.searchInfo.querySettings = params
+
       // console.log(this.searchInfo);
       this.onSubmit();
     },

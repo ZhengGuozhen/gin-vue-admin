@@ -23,11 +23,12 @@
           v-model="querySetting.mode"
           @input="(val) => {$emit('update', querySetting)}"
         >
-          <el-option label="无定义" value></el-option>
           <el-option label="等于" value="="></el-option>
           <el-option label="不等于" value="<>"></el-option>
           <el-option label="大于" value=">"></el-option>
+          <el-option label="大于等于" value=">="></el-option>
           <el-option label="小于" value="<"></el-option>
+          <el-option label="小于等于" value="<="></el-option>
           <el-option label="包含" value="like"></el-option>
         </el-select>
       </el-form-item>
