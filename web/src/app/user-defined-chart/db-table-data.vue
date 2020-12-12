@@ -34,7 +34,7 @@
     <el-form :inline="true">
       <el-form-item label="x">
         <el-select
-          placeholder=""
+          placeholder="X轴/半径轴"
           v-model="dataDimension.x"
         >
           <el-option
@@ -45,7 +45,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="y">
+      <el-form-item label="Y轴/角度轴">
         <el-select
           placeholder=""
           v-model="dataDimension.y"

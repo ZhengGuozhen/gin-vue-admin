@@ -3,6 +3,7 @@
     <el-row>
       <el-button type="primary" @click="dialog=true">添加series</el-button>
       <el-button type="primary" @click="initChart">生成chart</el-button>
+      <el-button type="danger" @click="clearChart">清除</el-button>
     </el-row>
 
     <el-row>
@@ -36,7 +37,7 @@ export default {
           text: "极坐标双数值轴"
         },
         legend: {
-          data: ["line"]
+          data: []
         },
         polar: {
           center: ["50%", "54%"]
@@ -59,8 +60,13 @@ export default {
         series: [],
         animationDuration: 2000
       };
-      this.$refs.chart.mergeOptions(this.options);
 
+      this.$refs.chart.mergeOptions(this.options);
+    },
+    clearChart() {
+      this.options.legend.data = []
+      this.options.series = []
+      this.$refs.chart.mergeOptions(this.options);
     },
     dataReceived(d) {
       // console.log(d)
@@ -73,7 +79,11 @@ export default {
               return [item[d.dataDimension.x], item[d.dataDimension.y]]
             })
           }
+
+          
+      this.options.legend.data.push(s.name)
       this.options.series.push(s)
+
       this.$refs.chart.mergeOptions(this.options);
 
       this.dialog = false
