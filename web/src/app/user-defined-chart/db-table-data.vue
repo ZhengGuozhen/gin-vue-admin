@@ -1,78 +1,86 @@
 <template>
   <div>
     <h1>选择数据库和表</h1>
-    <el-form ref="getTableForm" :inline="true" :model="dbform" label-width="120px">
-      <el-form-item label="数据库名">
-        <el-select @change="getTable" v-model="dbform.dbName" filterable placeholder="请选择数据库">
-          <el-option
-            v-for="item in dbOptions"
-            :key="item.database"
-            :label="item.database"
-            :value="item.database"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="表名">
-        <el-select
-          @change="getColumn"
-          v-model="dbform.tableName"
-          :disabled="!dbform.dbName"
-          filterable
-          placeholder="请选择表"
-        >
-          <el-option
-            v-for="item in tableOptions"
-            :key="item.tableName"
-            :label="item.tableName"
-            :value="item.tableName"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-    </el-form>
+    <el-row>
+      <el-form ref="getTableForm" :inline="true" :model="dbform" label-width="120px">
+        <el-form-item label="数据库名">
+          <el-select @change="getTable" v-model="dbform.dbName" filterable placeholder="请选择数据库">
+            <el-option
+              v-for="item in dbOptions"
+              :key="item.database"
+              :label="item.database"
+              :value="item.database"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="表名">
+          <el-select
+            @change="getColumn"
+            v-model="dbform.tableName"
+            :disabled="!dbform.dbName"
+            filterable
+            placeholder="请选择表"
+          >
+            <el-option
+              v-for="item in tableOptions"
+              :key="item.tableName"
+              :label="item.tableName"
+              :value="item.tableName"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+    </el-row>
 
-    <h1>选择数据维度</h1>
-    <el-form :inline="true">
-      <el-form-item label="x">
-        <el-select
-          placeholder="X轴/半径轴"
-          v-model="dataDimension.x"
-        >
+    <h1>查询字段，第一个字段映射为x轴，第二个字段映射为y轴</h1>
+    <el-row>
+      <el-col :span="24">
+        <el-select style="width:100%" placeholder="查询字段" v-model="queryColumns" multiple clearable>
           <el-option
-            v-for="item in fields"
+            v-for="item in tableColumnsOption"
             :key="item.value"
             :label="item.label"
             :value="item.value"
           ></el-option>
         </el-select>
-      </el-form-item>
-      <el-form-item label="Y轴/角度轴">
-        <el-select
-          placeholder=""
-          v-model="dataDimension.y"
-        >
-          <el-option
-            v-for="item in fields"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="z">
-        <el-select
-          placeholder=""
-          v-model="dataDimension.z"
-        >
-          <el-option
-            v-for="item in fields"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-    </el-form>
+      </el-col>
+    </el-row>
 
+    <!-- <h1>选择数据维度</h1>
+    <el-row>
+      <el-form :inline="true">
+        <el-form-item label="x">
+          <el-select placeholder="X轴/半径轴" v-model="dataDimension.x">
+            <el-option
+              v-for="item in tableColumnsOption"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="y">
+          <el-select placeholder="Y轴/角度轴" v-model="dataDimension.y">
+            <el-option
+              v-for="item in tableColumnsOption"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="z">
+          <el-select placeholder v-model="dataDimension.z">
+            <el-option
+              v-for="item in tableColumnsOption"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+    </el-row>-->
 
     <h1>筛选条件</h1>
     <el-row>
@@ -83,7 +91,10 @@
     <el-row>
       <el-row v-for="(item, index) in querySettings" :key="item.uuid">
         <el-col :span="22">
-          <query-setting :fields="fields" v-on:update="(val) => {querySettings[index].data=val}"></query-setting>
+          <query-setting
+            :fields="tableColumnsOption"
+            v-on:update="(val) => {querySettings[index].data=val}"
+          ></query-setting>
         </el-col>
         <el-col :span="2">
           <el-button @click="querySettings.splice(index, 1)">删除</el-button>
@@ -91,7 +102,11 @@
       </el-row>
     </el-row>
 
-    <el-button @click="getData();" type="primary">确 定</el-button>
+    <el-row>
+      <el-col :span="2" :offset="22">
+        <el-button @click="getData();" type="primary">确 定</el-button>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -107,7 +122,7 @@ export default {
   data() {
     return {
       //////////////////
-      fields: [],
+      tableColumnsOption: [],
       querySettings: [],
       //////////////////
       dbform: {
@@ -118,11 +133,7 @@ export default {
       tableOptions: [],
       tableColumns: [],
       //////////////////
-      dataDimension: {
-        x: '',
-        y: '',
-        z: ''
-      },
+      queryColumns: []
       //////////////////
     };
   },
@@ -153,8 +164,12 @@ export default {
             return item.columnName;
           });
 
-          this.fields = res.data.columns.map(item => {
-            return { label: item.columnName, value: item.columnName };
+          this.tableColumnsOption = res.data.columns.map(item => {
+            return {
+              label:
+                item.columnComment != "" ? item.columnComment : item.columnName,
+              value: item.columnName
+            };
           });
         }
       }
@@ -187,16 +202,11 @@ export default {
         }
       }
 
-      // console.log(this.dbform.dbName);
-      // console.log(this.dbform.tableName);
-      // console.log(this.dataDimension);
-      // console.log(where);
-
       // 查询参数
       var params = {
         dbName: this.dbform.dbName,
         tableName: this.dbform.tableName,
-        dataDimension: [...Object.values(this.dataDimension)],
+        queryColumns: this.queryColumns,
         filter: where
       };
       // console.log(params);
@@ -209,14 +219,13 @@ export default {
       if (res.code == 0) {
         // console.log(res.data)
         if (res.data) {
-          this.$emit("data", 
-            {
-              dbName: this.dbform.dbName,
-              tableName: this.dbform.tableName,
-              dataDimension: this.dataDimension,
-              data: res.data
-            }
-          )
+          this.$emit("data", {
+            dbName: this.dbform.dbName,
+            tableName: this.dbform.tableName,
+            queryColumns: this.queryColumns,
+            filter: where,
+            data: res.data
+          });
         }
 
         this.$message({

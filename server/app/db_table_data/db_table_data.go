@@ -21,7 +21,7 @@ func InitRouter(Router *gin.RouterGroup) {
 type querys struct {
 	DbName        string `json:"dbName" form:"dbName"`
 	TableName     string `json:"tableName" form:"tableName"`
-	DataDimension []string `json:"dataDimension[]" form:"dataDimension[]"`
+	QueryColumns []string `json:"queryColumns[]" form:"queryColumns[]"`
 	Filter        string `json:"filter" form:"filter"`
 }
 
@@ -34,7 +34,7 @@ func getData(c *gin.Context) {
 	}
 
 	columns := ""
-	for _, value := range q.DataDimension {
+	for _, value := range q.QueryColumns {
 		if value == "" {
 			continue
 		}
