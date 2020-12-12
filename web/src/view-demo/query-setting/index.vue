@@ -1,7 +1,6 @@
 <template>
   <div>
     <div>
-      <el-row>查询条件数据类型错误会导致查询错误</el-row>
       <el-row>
         <el-button type="primary" @click="addQuerySetting">添加</el-button>
         <el-button type="danger" @click="querySettings=[]">清空</el-button>
@@ -10,14 +9,14 @@
       <el-row>
         <!-- 不能用 index 作为 key -->
         <!-- https://www.zhihu.com/question/61064119 -->
-        <div
-          v-for="(item, index) in querySettings"
-          :key="item.uuid"
-          style="display:flex;flex-direction:row;align-items:center"
-        >
-          <query-setting :fields="fields" v-on:update="(val) => {querySettings[index].data=val}"></query-setting>
-          <el-button @click="deleteQuerySetting(index)">删除</el-button>
-        </div>
+        <el-row v-for="(item, index) in querySettings" :key="item.uuid">
+          <el-col :span="22">
+            <query-setting :fields="fields" v-on:update="(val) => {querySettings[index].data=val}"></query-setting>
+          </el-col>
+          <el-col :span="2">
+            <el-button @click="deleteQuerySetting(index)">删除</el-button>
+          </el-col>
+        </el-row>
       </el-row>
     </div>
 
@@ -26,7 +25,7 @@
         <!-- @zgz 增加匹配模式参数，避免字符串为空或数字为0时不执行查询 -->
         <el-form-item label="名称">
           <el-select placeholder="匹配模式" v-model="searchInfo.name_">
-            <el-option label="无定义" value=""></el-option>
+            <el-option label="无定义" value></el-option>
             <el-option label="等于" value="="></el-option>
             <el-option label="大于" value=">"></el-option>
             <el-option label="小于" value="<"></el-option>
@@ -35,7 +34,7 @@
         </el-form-item>
         <el-form-item label="数值">
           <el-select placeholder="匹配模式" v-model="searchInfo.value_">
-            <el-option label="无定义" value=""></el-option>
+            <el-option label="无定义" value></el-option>
             <el-option label="等于" value="="></el-option>
             <el-option label="大于" value=">"></el-option>
             <el-option label="小于" value="<"></el-option>
@@ -225,20 +224,20 @@ export default {
           continue;
         }
 
-        var s = "`[field]` [mode] '[value]'"
-        s = s.replace('[field]', e.data.field)
-        s = s.replace('[mode]', e.data.mode)
-        let v = ''
+        var s = "`[field]` [mode] '[value]'";
+        s = s.replace("[field]", e.data.field);
+        s = s.replace("[mode]", e.data.mode);
+        let v = "";
         if (e.data.mode === "like") {
-          v = '%' + e.data.value + '%'
+          v = "%" + e.data.value + "%";
         } else {
-          v = e.data.value
+          v = e.data.value;
         }
-        s = s.replace('[value]', v)
+        s = s.replace("[value]", v);
 
-        params.push(s)
+        params.push(s);
       }
-      this.searchInfo.querySettings = params
+      this.searchInfo.querySettings = params;
 
       // console.log(this.searchInfo);
       this.onSubmit();

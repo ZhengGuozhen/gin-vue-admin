@@ -28,7 +28,7 @@ func importData(c *gin.Context) {
 
 	sql := fmt.Sprintf("INSERT INTO `%s`.`%s` %s VALUES %s", d.Db, d.Table, d.Fields, d.Values)
 
-	err := global.GVA_DB.Debug().Exec(sql).Error
+	err := global.GVA_DB.Exec(sql).Error
 
 	if err != nil {
 		global.GVA_LOG.Error("excel导入失败!", zap.Any("err", err))

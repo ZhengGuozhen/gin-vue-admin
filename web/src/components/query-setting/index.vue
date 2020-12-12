@@ -47,11 +47,18 @@
 <script>
 export default {
   name: "QuerySetting",
-  props: ["fields", "value"],
+  props: ["fields"],
   data() {
     return {
-      querySetting: {}
+      querySetting: {
+        field: 'id',
+        mode: '=',
+        value: ''
+      }
     };
+  },
+  created () {
+    this.$emit('update', this.querySetting)
   },
   methods: {}
 };
