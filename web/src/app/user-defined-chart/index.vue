@@ -27,8 +27,6 @@ export default {
     return {
       dialog: false,
       //////////////////
-      
-      //////////////////
     };
   },
   methods: {
@@ -65,7 +63,7 @@ export default {
 
     },
     dataReceived(d) {
-      console.log(d)
+      // console.log(d)
       const s = {
             coordinateSystem: "polar",
             name: 'serie-' + d.dataDimension.x + '-' + d.dataDimension.y,

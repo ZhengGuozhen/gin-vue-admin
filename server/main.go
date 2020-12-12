@@ -1,9 +1,9 @@
 package main
 
 import (
+	dbTableData "gin-vue-admin/app/db_table_data"
 	demoApp "gin-vue-admin/app/demo_app/router"
 	excel "gin-vue-admin/app/excel_import"
-	userDefinedChart "gin-vue-admin/app/user_defined_chart"
 	"gin-vue-admin/core"
 	"gin-vue-admin/global"
 	"gin-vue-admin/initialize"
@@ -30,7 +30,7 @@ func main() {
 	// @zgz，添加app
 	demoApp.InitDemoAppRouter(global.GVA_ROUTER.Group(""))
 	excel.InitRouter(global.GVA_ROUTER.Group(""))
-	userDefinedChart.InitRouter(global.GVA_ROUTER.Group(""))
+	dbTableData.InitRouter(global.GVA_ROUTER.Group(""))
 
 	core.RunWindowsServer()
 }

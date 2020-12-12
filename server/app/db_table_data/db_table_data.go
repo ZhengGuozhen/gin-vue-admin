@@ -1,4 +1,4 @@
-package user_defined_chart
+package db_table_data
 
 import (
 	"fmt"
@@ -26,7 +26,7 @@ type querys struct {
 }
 
 func getData(c *gin.Context) {
-	// todo 根据参数查询拼接sql
+	// 处理请求参数
 	var q querys
 	err := c.ShouldBindQuery(&q)
 	if err != nil{
@@ -48,6 +48,7 @@ func getData(c *gin.Context) {
 		return
 	}
 
+	// 拼接sql
 	sql := ""
 	if q.Filter == "" {
 		sql = fmt.Sprintf("select %s from `%s`.`%s`;", columns, q.DbName, q.TableName)
