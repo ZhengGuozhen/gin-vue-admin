@@ -202,7 +202,7 @@ export default {
       // console.log(params);
 
       const res = await service({
-        url: "/userDefinedChart/data",
+        url: "/dbTableData/data",
         method: "get",
         params
       });

@@ -12,7 +12,7 @@ import (
 )
 
 func InitRouter(Router *gin.RouterGroup) {
-	r := Router.Group("userDefinedChart").Use(middleware.JWTAuth()).Use(middleware.CasbinHandler()).Use(middleware.OperationRecord())
+	r := Router.Group("dbTableData").Use(middleware.JWTAuth()).Use(middleware.CasbinHandler()).Use(middleware.OperationRecord())
 	{
 		r.GET("data", getData)   // 新建DemoApp
 	}
