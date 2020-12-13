@@ -1,76 +1,80 @@
 <template>
   <div>
     <el-row :gutter="20">
-      <el-col :span="4">
-        <el-select
-          v-model="chartSettings.coordinateSystem"
-          placeholder="坐标系"
-          @change="resetChart();chartSettings.seriesType='scatter';"
-        >
-          <el-option label="直角坐标系" value="cartesian2d"></el-option>
-          <el-option label="极坐标系" value="polar"></el-option>
-        </el-select>
-      </el-col>
-      <el-col :span="4">
-        <el-select
-          v-show="chartSettings.coordinateSystem==='cartesian2d'"
-          v-model="chartSettings.xAxisType"
-          placeholder="x坐标轴类型"
-          @change="resetChart"
-        >
-          <el-option label="数值轴" value="value"></el-option>
-          <el-option label="类目轴" value="category"></el-option>
-          <el-option label="时间轴" value="time"></el-option>
-          <el-option label="对数轴" value="log"></el-option>
-        </el-select>
-      </el-col>
-      <el-col :span="4">
-        <el-select
-          v-show="chartSettings.coordinateSystem==='cartesian2d'"
-          v-model="chartSettings.yAxisType"
-          placeholder="y坐标轴类型"
-          @change="resetChart"
-        >
-          <el-option label="数值轴" value="value"></el-option>
-          <el-option label="类目轴" value="category"></el-option>
-          <el-option label="时间轴" value="time"></el-option>
-          <el-option label="对数轴" value="log"></el-option>
-        </el-select>
-      </el-col>
-      <el-col :span="2">
-        <el-button type="danger" @click="resetChart">重置chart</el-button>
-      </el-col>
+      <el-form :inline="true" label-width="120px">
+        <el-form-item label="坐标系类型">
+          <el-select
+            v-model="chartSettings.coordinateSystem"
+            placeholder="坐标系类型"
+            @change="resetChart();chartSettings.seriesType='scatter';"
+          >
+            <el-option label="直角坐标系" value="cartesian2d"></el-option>
+            <el-option label="极坐标系" value="polar"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="x坐标轴类型">
+          <el-select
+            :disabled="chartSettings.coordinateSystem!='cartesian2d'"
+            v-model="chartSettings.xAxisType"
+            placeholder="x坐标轴类型"
+            @change="resetChart"
+          >
+            <el-option label="数值轴" value="value"></el-option>
+            <el-option label="类目轴" value="category"></el-option>
+            <el-option label="时间轴" value="time"></el-option>
+            <el-option label="对数轴" value="log"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="y坐标轴类型">
+          <el-select
+            :disabled="chartSettings.coordinateSystem!='cartesian2d'"
+            v-model="chartSettings.yAxisType"
+            placeholder="y坐标轴类型"
+            @change="resetChart"
+          >
+            <el-option label="数值轴" value="value"></el-option>
+            <el-option label="类目轴" value="category"></el-option>
+            <el-option label="时间轴" value="time"></el-option>
+            <el-option label="对数轴" value="log"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="danger" @click="resetChart">重置chart</el-button>
+        </el-form-item>
+      </el-form>
     </el-row>
     <el-row :gutter="20">
-      <el-col :span="4">
-        <el-input v-model="chartSettings.seriesName" clearable placeholder="series名称"></el-input>
-      </el-col>
-      <el-col :span="4">
-        <!-- 不同坐标系支持的seriesType不同 -->
-        <el-select
-          v-if="chartSettings.coordinateSystem==='cartesian2d'"
-          v-model="chartSettings.seriesType"
-          placeholder="类型"
-        >
-          <el-option label="折线图" value="line"></el-option>
-          <el-option label="散点图" value="scatter"></el-option>
-          <!-- <el-option label="饼状图" value="pie"></el-option> -->
-          <el-option label="柱状图" value="bar"></el-option>
-        </el-select>
-        <el-select
-          v-if="chartSettings.coordinateSystem==='polar'"
-          v-model="chartSettings.seriesType"
-          placeholder="类型"
-        >
-          <el-option label="折线图" value="line"></el-option>
-          <el-option label="散点图" value="scatter"></el-option>
-          <!-- <el-option label="饼状图" value="pie"></el-option> -->
-          <!-- <el-option label="柱状图" value="bar"></el-option> -->
-        </el-select>
-      </el-col>
-      <el-col :span="2">
-        <el-button type="primary" @click="addSeries">添加series</el-button>
-      </el-col>
+      <el-form :inline="true" label-width="120px">
+        <el-form-item label="series名称">
+          <el-input v-model="chartSettings.seriesName" clearable placeholder="series名称"></el-input>
+        </el-form-item>
+        <el-form-item label="series类型">
+          <!-- 不同坐标系支持的seriesType不同 -->
+          <el-select
+            v-if="chartSettings.coordinateSystem==='cartesian2d'"
+            v-model="chartSettings.seriesType"
+            placeholder="series类型"
+          >
+            <el-option label="折线图" value="line"></el-option>
+            <el-option label="散点图" value="scatter"></el-option>
+            <!-- <el-option label="饼状图" value="pie"></el-option> -->
+            <el-option label="柱状图" value="bar"></el-option>
+          </el-select>
+          <el-select
+            v-if="chartSettings.coordinateSystem==='polar'"
+            v-model="chartSettings.seriesType"
+            placeholder="series类型"
+          >
+            <el-option label="折线图" value="line"></el-option>
+            <el-option label="散点图" value="scatter"></el-option>
+            <!-- <el-option label="饼状图" value="pie"></el-option> -->
+            <!-- <el-option label="柱状图" value="bar"></el-option> -->
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="addSeries">添加series</el-button>
+        </el-form-item>
+      </el-form>
     </el-row>
 
     <el-row>
@@ -116,6 +120,20 @@ export default {
           legend: {
             data: []
           },
+          dataZoom: [
+            {
+              show: true,
+              realtime: true,
+              start: 0,
+              end: 100
+            },
+            {
+              type: "inside",
+              realtime: true,
+              start: 0,
+              end: 100
+            }
+          ],
           xAxis: {
             type: this.chartSettings.xAxisType,
             splitLine: { show: false },
@@ -133,7 +151,8 @@ export default {
               type: "cross"
             }
           },
-          series: []
+          series: [],
+          animationDuration: 2000
         };
       } else if (this.chartSettings.coordinateSystem === "polar") {
         // 针对探测图配置

@@ -32,7 +32,7 @@
       </el-form>
     </el-row>
 
-    <h1>查询字段，第一个字段映射为x轴，第二个字段映射为y轴</h1>
+    <h1>查询字段，第一个字段映射为X轴/半径轴，第二个字段映射为Y轴/角度轴</h1>
     <el-row>
       <el-col :span="24">
         <el-select style="width:100%" placeholder="查询字段" v-model="queryColumns" multiple clearable>
