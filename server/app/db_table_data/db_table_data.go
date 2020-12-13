@@ -18,7 +18,7 @@ func InitRouter(Router *gin.RouterGroup) {
 	}
 }
 
-type querys struct {
+type queryRequest struct {
 	DbName        string `json:"dbName" form:"dbName"`
 	TableName     string `json:"tableName" form:"tableName"`
 	QueryColumns []string `json:"queryColumns[]" form:"queryColumns[]"`
@@ -27,7 +27,7 @@ type querys struct {
 
 func getData(c *gin.Context) {
 	// 处理请求参数
-	var q querys
+	var q queryRequest
 	err := c.ShouldBindQuery(&q)
 	if err != nil{
 		log.Fatalln(err)
