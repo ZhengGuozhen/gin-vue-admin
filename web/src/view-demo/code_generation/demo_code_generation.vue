@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-card>这里的查询方式已经弃用，后台接口已经删除，参考其他demo</el-card>
     <div class="search-term">
       <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
         <!-- @zgz 增加匹配模式参数，避免字符串为空或数字为0时不执行查询 -->
