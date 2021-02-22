@@ -11,8 +11,9 @@ type Server struct {
 	// gorm
 	Mysql   Mysql   `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
 	// oss
-	Local   Local   `mapstructure:"local" json:"local" yaml:"local"`
-	Qiniu   Qiniu   `mapstructure:"qiniu" json:"qiniu" yaml:"qiniu"`
+	Local Local `mapstructure:"local" json:"local" yaml:"local"`
+	Qiniu Qiniu `mapstructure:"qiniu" json:"qiniu" yaml:"qiniu"`
+	Excel Excel `mapstructure:"excel" json:"excel" yaml:"excel"`
 	// @zgz
 	Minio  Minio    `mapstructure:"minio" json:"minio" yaml:"minio"`
 	Middleware Middleware `mapstructure:"middleware" json:"middleware" yaml:"middleware"`

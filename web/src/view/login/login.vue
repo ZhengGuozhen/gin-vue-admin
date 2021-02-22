@@ -20,14 +20,9 @@
           @keyup.enter.native="submitForm"
         >
           <el-form-item prop="username">
-            <el-input
-              placeholder="请输入用户名"
-              v-model="loginForm.username"
-            >
-            <i
-                class="el-input__icon el-icon-user"
-                slot="suffix"
-              ></i></el-input>
+            <el-input placeholder="请输入用户名" v-model="loginForm.username">
+              <i class="el-input__icon el-icon-user" slot="suffix"></i
+            ></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input
@@ -42,12 +37,12 @@
               ></i>
             </el-input>
           </el-form-item>
-          <el-form-item style="position:relative">
+          <el-form-item style="position: relative">
             <el-input
               v-model="loginForm.captcha"
               name="logVerify"
               placeholder="请输入验证码"
-              style="width:60%"
+              style="width: 60%"
             />
             <div class="vPic">
               <img
@@ -61,7 +56,7 @@
             </div>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm" style="width:100%"
+            <el-button type="primary" @click="submitForm" style="width: 100%"
               >登 录</el-button
             >
           </el-form-item>
@@ -121,13 +116,15 @@ export default {
   methods: {
     ...mapActions("user", ["LoginIn"]),
     async login() {
-      await this.LoginIn(this.loginForm);
+      return await this.LoginIn(this.loginForm);
     },
     async submitForm() {
       this.$refs.loginForm.validate(async (v) => {
         if (v) {
-          this.login();
-          this.loginVefify();
+          const flag = await this.login();
+          if (!flag) {
+            this.loginVefify();
+          }
         } else {
           this.$message({
             type: "error",
@@ -153,6 +150,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/style/login.scss';
-
+@import "@/style/login.scss";
 </style>

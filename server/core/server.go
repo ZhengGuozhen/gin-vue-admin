@@ -36,7 +36,7 @@ func RunWindowsServer() {
 
 	fmt.Printf(`
 	欢迎使用 GVA
-	当前版本:V2.3.8
+	当前版本:V2.3.9
 	默认自动化文档地址:http://127.0.0.1%s/swagger/index.html
 	默认前端文件运行地址:http://127.0.0.1:8080
 `, address)
