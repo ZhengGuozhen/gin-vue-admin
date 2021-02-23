@@ -7,7 +7,7 @@
 
 var child_process = require("child_process");
 
-var url = "https://www.xxx.com",
+var url = "https://www.gva.com",
     cmd = '';
 console.log(process.platform)
 switch (process.platform) {

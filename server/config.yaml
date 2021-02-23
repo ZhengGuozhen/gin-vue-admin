@@ -57,9 +57,9 @@ captcha:
 mysql:
   path: '127.0.0.1:3306'
   config: 'charset=utf8mb4&parseTime=True&loc=Local'
-  db-name: 'gva_20201216'
+  db-name: 'gva_20210223'
   username: 'root'
-  password: 'root'
+  password: 'rootroot'
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: false
