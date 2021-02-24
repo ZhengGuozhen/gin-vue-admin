@@ -10,6 +10,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"os"
+	modelFileUpload "gin-vue-admin/app/file_upload/model"
 )
 
 //@author: SliverHorn
@@ -59,6 +60,8 @@ func MysqlTables(db *gorm.DB) {
 		model.DemoCodeGeneration{},
 		// @zgz，添加app
 		modelAppDemo.DemoApp{},
+		// @zgz
+		modelFileUpload.FileUpload{},
 	)
 	if err != nil {
 		global.GVA_LOG.Error("register table failed", zap.Any("err", err))
