@@ -12,11 +12,15 @@ type FileUpload struct {
 	Key  string `json:"key" gorm:"comment:编号"`
 
 	// todo 添加额外的字段
-	Submitter string `json:"submitter" gorm:"comment:上传人"`
+	Pid int64 `json:"pid" gorm:"comment:父标识"`
 }
 
 func (FileUpload) TableName() string {
 	return "file_upload"
+}
+
+type FileUploadRequest struct {
+	Pid int64 `json:"pid"`
 }
 
 type FileUploadResponse struct {

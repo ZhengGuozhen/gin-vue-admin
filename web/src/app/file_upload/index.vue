@@ -2,9 +2,14 @@
   <div v-loading.fullscreen.lock="fullscreenLoading">
     <div class="upload">
       <el-row>
+        <el-col :span="4">
+          <el-input v-model="pid" placeholder="请输入pid"></el-input>
+        </el-col>
         <el-col :span="12">
+          <!-- 原始代码 :action="`${path}/fileUpload/upload`" -->
+          <!-- 在上述url中添加参数 -->
           <el-upload
-            :action="`${path}/fileUpload/upload`"
+            :action="`${path}/fileUpload/upload?pid=${this.pid}`"
             :before-upload="checkFile"
             :headers="{ 'x-token': token }"
             :on-error="uploadError"
@@ -40,7 +45,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="上传人" prop="submitter" width="180"></el-table-column>
+        <el-table-column label="父标志" prop="pid" width="180"></el-table-column>
 
         <el-table-column label="操作" width="160">
           <template slot-scope="scope">
@@ -82,7 +87,9 @@ export default {
       tableData: [],
       imageUrl: "",
       //////////////
-      multipleSelection: []
+      multipleSelection: [],
+      //////////////
+      pid: ''
     };
   },
   computed: {

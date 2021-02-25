@@ -8,9 +8,16 @@ import (
 	"gin-vue-admin/model/response"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"strconv"
 )
 
 func UploadFile(c *gin.Context) {
+	// @zgz
+	var metaData model.FileUploadRequest
+	pidStr := c.DefaultQuery("pid", "0")
+	pid, _ := strconv.ParseInt(pidStr, 10, 64)
+	metaData.Pid = pid
+
 	var file model.FileUpload
 	noSave := c.DefaultQuery("noSave", "0")
 	_, header, err := c.Request.FormFile("file")
@@ -19,7 +26,10 @@ func UploadFile(c *gin.Context) {
 		response.FailWithMessage("接收文件失败", c)
 		return
 	}
-	err, file = service.UploadFile(header, noSave) // 文件上传后拿到文件路径
+
+	//err, file = service.UploadFile(header, noSave) // 文件上传后拿到文件路径
+	err, file = service.UploadFile(header, noSave, metaData) // 文件上传后拿到文件路径
+
 	if err != nil {
 		global.GVA_LOG.Error("修改数据库链接失败!", zap.Any("err", err))
 		response.FailWithMessage("修改数据库链接失败", c)

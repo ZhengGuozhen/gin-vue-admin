@@ -41,7 +41,8 @@ func GetFileRecordInfoList(info request.PageInfo) (err error, list interface{}, 
 	return err, fileLists, total
 }
 
-func UploadFile(header *multipart.FileHeader, noSave string) (err error, file model.FileUpload) {
+//func UploadFile(header *multipart.FileHeader, noSave string) (err error, file model.FileUpload) {
+func UploadFile(header *multipart.FileHeader, noSave string, metaData model.FileUploadRequest) (err error, file model.FileUpload) {
 	oss := upload.NewOss()
 	filePath, key, uploadErr := oss.UploadFile(header)
 	if uploadErr != nil {
@@ -54,6 +55,8 @@ func UploadFile(header *multipart.FileHeader, noSave string) (err error, file mo
 			Name: header.Filename,
 			Tag:  s[len(s)-1],
 			Key:  key,
+			// @zgz
+			Pid: metaData.Pid,
 		}
 		return Upload(f), f
 	}
