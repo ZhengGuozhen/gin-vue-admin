@@ -9,20 +9,15 @@
           <!-- 原始代码 :action="`${path}/fileUpload/upload`" -->
           <!-- 在上述url中添加参数 -->
           <el-upload
-            ref="upload"
             :action="`${path}/fileUpload/upload?pid=${this.pid}`"
             :before-upload="checkFile"
             :headers="{ 'x-token': token }"
             :on-error="uploadError"
             :on-success="uploadSuccess"
-            :show-file-list="true"
+            :show-file-list="false"
             multiple
-            :auto-upload="false"
-            :data="{meta: JSON.stringify(uploadData)}"
           >
-            <!-- <el-button size="small" type="primary">点击上传</el-button> -->
-            <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-            <el-button style="margin-left: 10px;" size="small" type="success" @click="$refs.upload.submit()">上传</el-button>
+            <el-button size="small" type="primary">点击上传</el-button>
             <div class="el-upload__tip" slot="tip">可以上传所有格式文件，单个文件大小不超过1024Mb</div>
           </el-upload>
         </el-col>
@@ -51,7 +46,6 @@
         </el-table-column>
 
         <el-table-column label="父标志" prop="pid" width="180"></el-table-column>
-        <el-table-column label="元数据" prop="meta" width="300"></el-table-column>
 
         <el-table-column label="操作" width="160">
           <template slot-scope="scope">
@@ -95,8 +89,7 @@ export default {
       //////////////
       multipleSelection: [],
       //////////////
-      pid: '',
-      uploadData: { field: 'haha'}
+      pid: ''
     };
   },
   computed: {

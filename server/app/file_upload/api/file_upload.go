@@ -12,11 +12,11 @@ import (
 )
 
 func UploadFile(c *gin.Context) {
-	// @zgz
-	var metaData model.FileUploadRequest
-	pidStr := c.DefaultQuery("pid", "0")
-	pid, _ := strconv.ParseInt(pidStr, 10, 64)
-	metaData.Pid = pid
+	// @zgz 使用url参数和post form参数
+	var requestData model.FileUploadRequest
+	requestData.Pid, _ = strconv.ParseInt(c.DefaultQuery("pid", "0"), 10, 64)
+	requestData.Meta = c.DefaultPostForm("meta", "{}")
+	//global.GVA_LOG.Info(requestData.Meta)
 
 	var file model.FileUpload
 	noSave := c.DefaultQuery("noSave", "0")
@@ -28,7 +28,7 @@ func UploadFile(c *gin.Context) {
 	}
 
 	//err, file = service.UploadFile(header, noSave) // 文件上传后拿到文件路径
-	err, file = service.UploadFile(header, noSave, metaData) // 文件上传后拿到文件路径
+	err, file = service.UploadFile(header, noSave, requestData) // 文件上传后拿到文件路径
 
 	if err != nil {
 		global.GVA_LOG.Error("修改数据库链接失败!", zap.Any("err", err))
