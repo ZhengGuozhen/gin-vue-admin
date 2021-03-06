@@ -8,6 +8,7 @@ import (
 	"gin-vue-admin/model/response"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"net/url"
 	"strconv"
 )
 
@@ -111,8 +112,10 @@ func DownloadFile(c *gin.Context) {
 		//println(file.Name)
 		//println(file.Url)
 
-		c.Header("Content-Description", "zgz")
-		c.FileAttachment(file.Url, file.Name)
+		fileName := url.QueryEscape(file.Name) // 防止中文乱码
+		c.Header("Content-Description", fileName)
+
+		c.FileAttachment(file.Url, fileName)
 
 	} else if global.GVA_CONFIG.System.OssType == "minio" {
 		response.FailWithMessage("不支持的存储模式", c)
