@@ -28,3 +28,5 @@ go.sum
 /server/latest_log
 
 *.iml
+
+server/uploads/
