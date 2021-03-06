@@ -55,7 +55,7 @@
 
         <el-table-column label="操作" width="160">
           <template slot-scope="scope">
-            <el-button @click="downloadFile(scope.row)" size="small" type="text">下载</el-button>
+            <el-button @click="download(scope.row)" size="small" type="text">下载</el-button>
             <el-button @click="deleteFileSingle(scope.row)" size="small" type="text">删除</el-button>
           </template>
         </el-table-column>
@@ -75,11 +75,14 @@
 </template>
 
 <script>
+
+/* eslint-disable */
+
 const path = process.env.VUE_APP_BASE_API;
 import { mapGetters } from "vuex";
 import infoList from "@/mixins/infoList";
-import { getFileList, deleteFile } from "./api";
-import { downloadImage } from "@/utils/downloadImg";
+import { getFileList, deleteFile, downloadFile } from "./api";
+// import { downloadImage } from "@/utils/downloadImg";
 import { formatTimeToStr } from "@/utils/date";
 export default {
   name: "DemoUpload",
@@ -96,7 +99,7 @@ export default {
       multipleSelection: [],
       //////////////
       pid: '',
-      uploadData: { field: 'haha'}
+      uploadData: { field: 'haha'}, // 上传文件的描述数据
     };
   },
   computed: {
@@ -210,8 +213,21 @@ export default {
       });
       this.fullscreenLoading = false;
     },
-    downloadFile(row) {
-      downloadImage(row.url, row.name);
+    download(row) {
+      // console.log(row)
+      downloadFile(row);
+
+      // 需要设置 "Content-Type": "multipart/form-data"
+      // let data = new FormData();
+      // data.append('url', row.url);
+      // data.append('name', row.name);
+      // downloadFile(data);
+
+      // 另一种方式
+      // var a = document.createElement("a"); // 生成一个a元素
+      // var event = new MouseEvent("click"); // 创建一个单击事件
+      // a.href = `${path}/fileUpload/downloadFile`; // 将生成的URL设置为a.href属性
+      // a.dispatchEvent(event); // 触发a的单击事件
     }
   },
   created() {
