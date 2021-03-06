@@ -10,8 +10,12 @@ import (
 	"strings"
 )
 
-func Upload(file model.FileUpload) error {
-	return global.GVA_DB.Create(&file).Error
+//func Upload(file model.FileUpload) error {
+//	return global.GVA_DB.Create(&file).Error
+//}
+// @zgz 改为传指针
+func Upload(file *model.FileUpload) error {
+	return global.GVA_DB.Create(file).Error
 }
 
 func FindFile(id uint) (error, model.FileUpload) {
@@ -59,7 +63,7 @@ func UploadFile(header *multipart.FileHeader, noSave string, requestData model.F
 			Pid: requestData.Pid,
 			Meta: requestData.Meta,
 		}
-		return Upload(f), f
+		return Upload(&f), f
 	}
 	return
 }
